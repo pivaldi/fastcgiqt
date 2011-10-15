@@ -190,7 +190,7 @@ namespace FastCgiQt
 
 	QString Request::value(DataSource source, const QByteArray& name) const
 	{
-		return QUrl::fromPercentEncoding(rawValue(source, name));
+          return QUrl::fromPercentEncoding(rawValue(source, name).replace('+', ' '));
 	}
 
 	Request::~Request()
