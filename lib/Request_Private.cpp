@@ -69,7 +69,9 @@ namespace FastCgiQt
         break;
       case UnknownPostData:
         postDataMode = ValuesPostData;
-        if(serverData.values("CONTENT_TYPE").first().contains("application/x-www-form-urlencoded"))
+        QList<QByteArray> contentTypes = serverData.values("CONTENT_TYPE");
+        if (contentTypes.size() > 0
+            && contentTypes.first().contains("application/x-www-form-urlencoded"))
           {
             ///@todo pay attention if content-type includes "; charset=FOO" - at the moment, assume UTF8
             QByteArray data = device->readAll();
