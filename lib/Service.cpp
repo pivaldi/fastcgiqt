@@ -136,6 +136,13 @@ namespace FastCgiQt
 		dispatchUncachedRequest(urlFragment);
 	}
 
+  void Service::dispatchUnmatchedRequest(const QByteArray& suffix)
+  {
+    request()->setHeader("STATUS", "404 Not Found");
+    QTextStream out(request());
+    out << "<h1>404 Not Found</h1>";
+  }
+
 	void Service::dispatchUncachedRequest(const QByteArray& suffix)
 	{
 		const QString urlFragment = QUrl::fromPercentEncoding(suffix.mid(1));
@@ -175,12 +182,9 @@ namespace FastCgiQt
 			}
 		}
 		else
-		{
-			///@todo Add some kind of interface for hooking 404s ?
-			request()->setHeader("STATUS", "404 Not Found");
-			QTextStream out(request());
-			out << "<h1>404 Not Found</h1>";
-			d->dispatchingRequest = false;
+                {
+                  d->dispatchingRequest = false;
+                  dispatchUnmatchedRequest(suffix);
 		}
 	}
 

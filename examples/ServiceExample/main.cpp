@@ -31,8 +31,8 @@ int main(int argc, char** argv)
 
 	mapper.connect(
 		&manager,
-		SIGNAL(newRequest(FastCgiQt::Request*)),
-		SLOT(respond(FastCgiQt::Request*))
+		SIGNAL(newRequest(FastCgiQt::Request*)), // manager.newRequest
+		SLOT(respond(FastCgiQt::Request*)) // mapper.respond
 	);
 	mapper.addMapping(QByteArray(), new FastCgiQt::Spawner<IndexService>(), SLOT(respond(FastCgiQt::Request*)));
 	mapper.addMapping("articles", new FastCgiQt::Spawner<ArticleService>(), SLOT(respond(FastCgiQt::Request*)));

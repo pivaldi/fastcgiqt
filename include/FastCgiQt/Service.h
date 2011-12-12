@@ -90,6 +90,16 @@ namespace FastCgiQt
 			 * @see respond()
 			 */
 			virtual void dispatchUncachedRequest(const QByteArray& suffix);
+			/** Call a slot based on an unmatched URL fragment
+                         *
+                         * Override this method to provide a "404 Not Found"
+                         * page for example.
+			 *
+			 * @see urlMap()
+			 * @see dispatchUncachedRequest()
+			 * @see respond()
+			 */
+			virtual void dispatchUnmatchedRequest(const QByteArray& suffix);
 
 			/// A pointer to the current request.
 			Request* request() const;
