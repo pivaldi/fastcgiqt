@@ -45,12 +45,12 @@ namespace FastCgiQt
 
 	void PrefixMapper::addMapping(const QString& serviceName, SpawnerBase* spawner, const char* slot)
 	{
-		d->services.insert(QUrl::toPercentEncoding(serviceName), Private::Receiver(spawner, slot));
+          d->services.insert(QUrl::toPercentEncoding(serviceName, ":"), Private::Receiver(spawner, slot));
 	}
 
 	void PrefixMapper::addMapping(const QString& serviceName, QObject* receiver, const char* slot)
 	{
-		d->services.insert(QUrl::toPercentEncoding(serviceName), Private::Receiver(new PrespawnedSpawner(receiver), slot));
+          d->services.insert(QUrl::toPercentEncoding(serviceName, ":"), Private::Receiver(new PrespawnedSpawner(receiver), slot));
 	}
 
 	QByteArray PrefixMapper::prefix(FastCgiQt::Request* request)
@@ -62,7 +62,7 @@ namespace FastCgiQt
 	{
 		return Private::suffix(request);
 	}
-	
+
 	void PrefixMapper::respond(FastCgiQt::Request* request)
 	{
 		const QByteArray currentSuffix = Private::suffix(request);

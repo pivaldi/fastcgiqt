@@ -34,6 +34,7 @@ int main(int argc, char** argv)
 		SIGNAL(newRequest(FastCgiQt::Request*)), // manager.newRequest
 		SLOT(respond(FastCgiQt::Request*)) // mapper.respond
 	);
+
 	mapper.addMapping(QByteArray(), new FastCgiQt::Spawner<IndexService>(), SLOT(respond(FastCgiQt::Request*)));
 	mapper.addMapping("articles", new FastCgiQt::Spawner<ArticleService>(), SLOT(respond(FastCgiQt::Request*)));
 	return application.exec();
